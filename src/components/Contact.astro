@@ -1,0 +1,255 @@
+---
+---
+
+<section id="contacto" class="py-16 bg-cookie-brown text-white relative overflow-hidden">
+  <!-- Elementos decorativos -->
+  <div class="absolute inset-0 pointer-events-none opacity-10">
+    <div class="absolute top-10 right-10 w-64 h-64 rounded-full bg-white blur-3xl"></div>
+    <div class="absolute bottom-10 left-10 w-80 h-80 rounded-full bg-cookie-accent blur-3xl"></div>
+  </div>
+
+  <div class="container-custom relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-3xl font-bold mb-3">¿Dulce antojo? Contáctanos</h2>
+        <p class="mb-8 opacity-90">
+          Responderemos a todas tus dudas, sugerencias o pedidos especiales. ¡Tu satisfacción es nuestra prioridad!
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-white/10 backdrop-blur-sm p-5 rounded-xl hover:bg-white/20 transition-colors">
+            <i class="fas fa-map-marker-alt text-cookie-accent text-2xl mb-3"></i>
+            <h4 class="font-bold text-lg mb-1">Visítanos</h4>
+            <p class="opacity-80">Av. Los Rosales 122, 28021, Chihuahua</p>
+          </div>
+          
+          <div class="bg-white/10 backdrop-blur-sm p-5 rounded-xl hover:bg-white/20 transition-colors">
+            <i class="fas fa-phone-alt text-cookie-accent text-2xl mb-3"></i>
+            <h4 class="font-bold text-lg mb-1">Llámanos</h4>
+            <p class="opacity-80">+52 614-4055704</p>
+            <p class="opacity-80">Lu-Vi: 9:00 - 18:00</p>
+          </div>
+          
+          <div class="bg-white/10 backdrop-blur-sm p-5 rounded-xl hover:bg-white/20 transition-colors">
+            <i class="fas fa-envelope text-cookie-accent text-2xl mb-3"></i>
+            <h4 class="font-bold text-lg mb-1">Escríbenos</h4>
+            <p class="opacity-80">hola@serenicookies.com</p>
+            <p class="opacity-80">soporte@serenicookies.com</p>
+          </div>
+          
+          <div class="bg-white/10 backdrop-blur-sm p-5 rounded-xl hover:bg-white/20 transition-colors">
+            <i class="fas fa-share-alt text-cookie-accent text-2xl mb-3"></i>
+            <h4 class="font-bold text-lg mb-1">Síguenos</h4>
+            <div class="flex gap-3 mt-2">
+              <a href="#" class="hover:text-cookie-accent transition-colors" aria-label="Facebook">
+                <i class="fab fa-facebook-f text-lg"></i>
+              </a>
+              <a href="#" class="hover:text-cookie-accent transition-colors" aria-label="Instagram">
+                <i class="fab fa-instagram text-lg"></i>
+              </a>
+              <a href="#" class="hover:text-cookie-accent transition-colors" aria-label="Twitter">
+                <i class="fab fa-twitter text-lg"></i>
+              </a>
+              <a href="#" class="hover:text-cookie-accent transition-colors" aria-label="Pinterest">
+                <i class="fab fa-pinterest-p text-lg"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-sm p-5 rounded-xl">
+          <div class="flex items-center mb-4">
+            <i class="fas fa-cookie-bite text-cookie-accent text-xl mr-2"></i>
+            <h4 class="font-bold text-lg">Horario de atención</h4>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <div>
+              <p class="font-medium">Lunes - Viernes</p>
+              <p class="opacity-80">9:00 - 20:00</p>
+            </div>
+            <div>
+              <p class="font-medium">Sábados</p>
+              <p class="opacity-80">10:00 - 18:00</p>
+            </div>
+            <div>
+              <p class="font-medium">Domingos</p>
+              <p class="opacity-80">11:00 - 16:00</p>
+            </div>
+            <div>
+              <p class="font-medium">Días festivos</p>
+              <p class="opacity-80">Consultar web</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/10 backdrop-blur-sm p-6 md:p-8 rounded-xl shadow-xl">
+        <h3 class="text-2xl font-bold mb-6">Envíanos un mensaje</h3>
+        
+        <form id="contact-form" class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="name" class="block text-sm font-medium mb-1">Nombre</label>
+              <input 
+                type="text" 
+                id="name" 
+                class="w-full p-3 rounded-lg bg-white/20 border border-white/10 focus:outline-none focus:ring-2 focus:ring-cookie-accent text-white placeholder-white/50" 
+                placeholder="Tu nombre"
+                required
+              />
+            </div>
+            
+            <div>
+              <label for="email" class="block text-sm font-medium mb-1">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                class="w-full p-3 rounded-lg bg-white/20 border border-white/10 focus:outline-none focus:ring-2 focus:ring-cookie-accent text-white placeholder-white/50" 
+                placeholder="tu@email.com"
+                required
+              />
+            </div>
+          </div>
+          
+          <div>
+            <label for="subject" class="block text-sm font-medium mb-1">Asunto</label>
+            <input 
+              type="text" 
+              id="subject" 
+              class="w-full p-3 rounded-lg bg-white/20 border border-white/10 focus:outline-none focus:ring-2 focus:ring-cookie-accent text-white placeholder-white/50" 
+              placeholder="¿Sobre qué nos escribes?"
+              required
+            />
+          </div>
+          
+          <div>
+            <label for="message" class="block text-sm font-medium mb-1">Mensaje</label>
+            <textarea 
+              id="message" 
+              rows="4" 
+              class="w-full p-3 rounded-lg bg-white/20 border border-white/10 focus:outline-none focus:ring-2 focus:ring-cookie-accent text-white placeholder-white/50" 
+              placeholder="Escribe tu mensaje aquí..."
+              required
+            ></textarea>
+          </div>
+
+          <div class="flex items-start">
+            <input type="checkbox" id="privacy" class="mt-1" required />
+            <label for="privacy" class="ml-2 text-sm opacity-80">
+              Acepto la <a href="#" class="underline hover:text-cookie-accent">política de privacidad</a> y el tratamiento de mis datos.
+            </label>
+          </div>
+          
+          <button 
+            type="submit" 
+            class="w-full bg-cookie-accent hover:bg-cookie-accent/80 text-white font-medium py-3 px-6 rounded-lg transition-colors"
+          >
+            Enviar mensaje
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="mt-16 py-8 border-t border-white/20 text-center">
+      <h3 class="text-2xl font-bold mb-3">Suscríbete a nuestro newsletter</h3>
+      <p class="mb-6 max-w-xl mx-auto opacity-80">
+        Recibe nuestras promociones, nuevos sabores y consejos dulces directamente en tu bandeja de entrada.
+      </p>
+      
+      <form id="subscribe-form" class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+        <input 
+          type="email" 
+          placeholder="tu@email.com" 
+          class="flex-1 p-3 rounded-lg bg-white/20 border border-white/10 focus:outline-none focus:ring-2 focus:ring-cookie-accent text-white placeholder-white/50"
+          required
+        />
+        <button 
+          type="submit"
+          class="bg-white text-cookie-brown hover:bg-cookie-cream font-medium py-3 px-6 rounded-lg transition-colors"
+        >
+          Suscribirse
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Manejo del formulario de contacto
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Simulación de envío de formulario
+      const submitButton = this.querySelector('button[type="submit"]') as HTMLButtonElement;
+      if (!submitButton) return;
+      
+      const originalText = submitButton.innerHTML;
+      submitButton.disabled = true;
+      submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enviando...';
+      
+      // Simular tiempo de procesamiento
+      setTimeout(() => {
+        const formData = {
+          name: (document.getElementById('name') as HTMLInputElement)?.value || '',
+          email: (document.getElementById('email') as HTMLInputElement)?.value || '',
+          subject: (document.getElementById('subject') as HTMLInputElement)?.value || '',
+          message: (document.getElementById('message') as HTMLTextAreaElement)?.value || ''
+        };
+        
+        console.log('Datos de formulario:', formData);
+        
+        // Resetear formulario
+        (contactForm as HTMLFormElement).reset();
+        
+        // Mostrar mensaje de éxito
+        submitButton.innerHTML = '<i class="fas fa-check mr-2"></i> ¡Mensaje enviado!';
+        submitButton.classList.add('bg-green-500');
+        
+        // Restaurar botón después de un tiempo
+        setTimeout(() => {
+          submitButton.disabled = false;
+          submitButton.innerHTML = originalText;
+          submitButton.classList.remove('bg-green-500');
+        }, 3000);
+      }, 1500);
+    });
+  }
+  
+  // Manejo del formulario de suscripción
+  const subscribeForm = document.getElementById('subscribe-form');
+  if (subscribeForm) {
+    subscribeForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Simulación de suscripción
+      const submitButton = this.querySelector('button[type="submit"]') as HTMLButtonElement;
+      if (!submitButton) return;
+      
+      const originalText = submitButton.innerHTML;
+      const emailInput = this.querySelector('input[type="email"]');
+      
+      submitButton.disabled = true;
+      submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Procesando...';
+      
+      // Simular tiempo de procesamiento
+      setTimeout(() => {
+        const email = (emailInput as HTMLInputElement)?.value || '';
+        console.log('Suscripción con email:', email);
+        
+        // Resetear formulario
+        (subscribeForm as HTMLFormElement).reset();
+        
+        // Mostrar mensaje de éxito
+        submitButton.innerHTML = '<i class="fas fa-check mr-2"></i> ¡Suscrito!';
+        
+        // Restaurar botón después de un tiempo
+        setTimeout(() => {
+          submitButton.disabled = false;
+          submitButton.innerHTML = originalText;
+        }, 3000);
+      }, 1500);
+    });
+  }
+</script>

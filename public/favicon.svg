@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Fondo de la galleta -->
+  <circle cx="50" cy="50" r="45" fill="#D2B48C" />
+  
+  <!-- Sombra de la galleta -->
+  <circle cx="50" cy="50" r="42" fill="#8B4513" opacity="0.2" />
+  
+  <!-- Chips de chocolate -->
+  <circle cx="30" cy="35" r="5" fill="#654321" />
+  <circle cx="65" cy="28" r="6" fill="#654321" />
+  <circle cx="42" cy="60" r="5" fill="#654321" />
+  <circle cx="70" cy="55" r="4" fill="#654321" />
+  <circle cx="26" cy="70" r="6" fill="#654321" />
+  <circle cx="55" cy="47" r="4" fill="#654321" />
+  
+  <!-- Mordisco -->
+  <path d="M85,50 A40,40 0 0,1 78,75 L95,65 Z" fill="#D2B48C" />
+  <path d="M85,50 A40,40 0 0,1 78,75 L95,65 Z" fill="#8B4513" opacity="0.1" />
+</svg>

@@ -1,0 +1,107 @@
+---
+---
+
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="container-custom py-3">
+    <nav class="flex items-center justify-between">
+      <!-- Logo -->
+      <a href="/" class="flex items-center">
+        <span class="text-2xl font-bold text-cookie-brown font-serif">Sereni<span class="text-cookie-accent">Cookies</span></span>
+      </a>
+
+      <!-- Menú para móvil -->
+      <div class="lg:hidden">
+        <button id="mobile-menu-button" class="p-2 focus:outline-none" aria-label="Abrir menú">
+          <i class="fas fa-bars text-xl text-cookie-brown"></i>
+        </button>
+      </div>
+
+      <!-- Menú para desktop -->
+      <div class="hidden lg:flex items-center space-x-8">
+        <a href="/" class="font-medium hover:text-cookie-accent transition-colors">Inicio</a>
+        <a href="#productos" class="font-medium hover:text-cookie-accent transition-colors">Productos</a>
+        <a href="#nosotros" class="font-medium hover:text-cookie-accent transition-colors">Nosotros</a>
+        <a href="#contacto" class="font-medium hover:text-cookie-accent transition-colors">Contacto</a>
+        <div class="flex items-center space-x-4 ml-4">
+          <button class="text-cookie-brown hover:text-cookie-accent" aria-label="Buscar">
+            <i class="fas fa-search"></i>
+          </button>
+          <button id="cart-button" class="relative text-cookie-brown hover:text-cookie-accent" aria-label="Carrito">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" class="absolute -top-2 -right-2 bg-cookie-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Menú móvil -->
+  <div id="mobile-menu" class="hidden bg-white lg:hidden py-4 shadow-md">
+    <div class="container-custom flex flex-col space-y-4">
+      <a href="/" class="font-medium hover:text-cookie-accent transition-colors py-2">Inicio</a>
+      <a href="#productos" class="font-medium hover:text-cookie-accent transition-colors py-2">Productos</a>
+      <a href="#nosotros" class="font-medium hover:text-cookie-accent transition-colors py-2">Nosotros</a>
+      <a href="#contacto" class="font-medium hover:text-cookie-accent transition-colors py-2">Contacto</a>
+      <div class="flex items-center space-x-8 pt-2">
+        <button class="text-cookie-brown hover:text-cookie-accent" aria-label="Buscar">
+          <i class="fas fa-search"></i>
+        </button>
+        <button class="relative text-cookie-brown hover:text-cookie-accent" aria-label="Carrito">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="mobile-cart-count absolute -top-2 -right-2 bg-cookie-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Carrito de compras - Inicialmente oculto -->
+<div id="cart-dropdown" class="hidden fixed right-4 top-16 z-50 bg-white rounded-lg shadow-lg p-4 w-80">
+  <h3 class="text-lg font-bold mb-3 border-b pb-2">Tu Carrito</h3>
+  <div id="cart-items" class="max-h-60 overflow-y-auto">
+    <p class="text-gray-500 italic text-center py-4">Tu carrito está vacío</p>
+    <!-- Los productos se añadirán aquí dinámicamente -->
+  </div>
+  <div class="border-t mt-3 pt-3">
+    <div class="flex justify-between font-bold">
+      <span>Total:</span>
+      <span id="cart-total">$0.00</span>
+    </div>
+    <button class="btn btn-primary w-full mt-3">Finalizar Compra</button>
+  </div>
+</div>
+
+<script>
+  // Lógica para el menú móvil
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      // Cambiar icono según estado del menú
+      const icon = mobileMenuButton.querySelector('i');
+      if (icon) {
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+      }
+    });
+  }
+
+  // Lógica para el carrito de compras
+  const cartButton = document.getElementById('cart-button');
+  const cartDropdown = document.getElementById('cart-dropdown');
+  
+  if (cartButton && cartDropdown) {
+    cartButton.addEventListener('click', () => {
+      cartDropdown.classList.toggle('hidden');
+    });
+    
+    // Cerrar el carrito cuando se hace clic fuera de él
+    document.addEventListener('click', (event) => {
+      if (!cartButton.contains(event.target as Node) && !cartDropdown.contains(event.target as Node)) {
+        cartDropdown.classList.add('hidden');
+      }
+    });
+  }
+</script>

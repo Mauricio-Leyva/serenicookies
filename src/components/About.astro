@@ -1,0 +1,96 @@
+---
+const features = [
+  {
+    icon: "fa-wheat-awn",
+    title: "Ingredientes Premium",
+    description: "Seleccionamos cuidadosamente ingredientes de la más alta calidad para asegurar sabores excepcionales."
+  },
+  {
+    icon: "fa-hand-sparkles",
+    title: "Elaboración Artesanal",
+    description: "Cada galleta es elaborada a mano siguiendo recetas tradicionales con un toque moderno."
+  },
+  {
+    icon: "fa-seedling",
+    title: "Opciones Saludables",
+    description: "Ofrecemos alternativas con menos azúcar, sin gluten y opciones veganas para todos los gustos."
+  },
+  {
+    icon: "fa-truck-fast",
+    title: "Entrega Rápida",
+    description: "Garantizamos que nuestras galletas lleguen frescas a tu puerta en el menor tiempo posible."
+  }
+];
+---
+
+<section id="nosotros" class="py-16 bg-gradient-to-b from-cookie-cream to-white">
+  <div class="container-custom">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold mb-3 text-cookie-brown">Sobre Nosotros</h2>
+      <p class="text-lg max-w-2xl mx-auto text-cookie-dark/80">
+        Conoce la historia detrás de SereniCookies y por qué nuestras galletas son tan especiales.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="order-2 lg:order-1">
+        <h3 class="text-2xl font-bold mb-4 text-cookie-dark">Tu pausa perfecta, en forma de cookie...</h3>
+        <p class="mb-4 text-cookie-dark/80">
+          En SereniCookies, creemos que una buena galleta puede hacer que cualquier momento sea especial. Nuestra historia comenzó en una pequeña cocina con una simple pasión por crear momentos de felicidad a través de deliciosas galletas artesanales.
+        </p>
+        <p class="mb-6 text-cookie-dark/80">
+          Hoy, seguimos comprometidos con esa misma pasión, utilizando solo los mejores ingredientes y creando recetas que sorprenden y deleitan. Cada galleta está diseñada para ser tu compañera perfecta durante esos momentos de pausa y disfrute.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          {features.map(feature => (
+            <div class="bg-white p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div class="w-12 h-12 bg-cookie-light/30 rounded-full flex items-center justify-center mb-4">
+                <i class={`fas ${feature.icon} text-cookie-brown text-xl`}></i>
+              </div>
+              <h4 class="font-bold text-lg mb-2 text-cookie-dark">{feature.title}</h4>
+              <p class="text-sm text-cookie-dark/70">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="order-1 lg:order-2 relative">
+        <div class="grid grid-cols-2 gap-4">
+          <img 
+            class="rounded-lg shadow-lg transform translate-y-4" 
+            src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&auto=format&fit=crop&w=500" 
+            alt="Elaboración de galletas" 
+          />
+          <img 
+            class="rounded-lg shadow-lg" 
+            src="https://images.unsplash.com/photo-1599785209707-a456fc1337bb?q=80&auto=format&fit=crop&w=500" 
+            alt="Nuestras galletas recién horneadas" 
+          />
+          <img 
+            class="rounded-lg shadow-lg" 
+            src="https://images.unsplash.com/photo-1621236378699-8597ffc460db?q=80&auto=format&fit=crop&w=500" 
+            alt="Ingredientes de calidad" 
+          />
+          <img 
+            class="rounded-lg shadow-lg transform translate-y-4" 
+            src="https://images.unsplash.com/photo-1532499016263-f2c3e89de9cd?q=80&auto=format&fit=crop&w=500" 
+            alt="Degustación de galletas" 
+          />
+        </div>
+        
+        <div class="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-lg p-4 border-2 border-cookie-light hidden md:block">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-cookie-accent/20 flex items-center justify-center">
+              <i class="fas fa-cookie-bite text-cookie-accent text-xl"></i>
+            </div>
+            <div>
+              <p class="font-bold">+30</p>
+              <p class="text-sm text-gray-600">Variedades de galletas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

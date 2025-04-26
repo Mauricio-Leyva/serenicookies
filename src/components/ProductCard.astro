@@ -1,0 +1,301 @@
+---
+interface Props {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  discount?: number;
+  rating?: number;
+  category?: string;
+  isNew?: boolean;
+  isBestseller?: boolean;
+}
+
+const { 
+  id, 
+  name, 
+  description, 
+  price, 
+  image, 
+  discount = 0, 
+  rating = 5, 
+  category = "", 
+  isNew = false, 
+  isBestseller = false 
+} = Astro.props;
+
+const finalPrice = discount > 0 ? (price - (price * discount / 100)).toFixed(2) : price.toFixed(2);
+---
+
+<div class="card group product-card" data-product-id={id} data-category={category}>
+  <div class="relative overflow-hidden">
+    <img 
+      src={image} 
+      alt={name} 
+      class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+    />
+    
+    <div class="absolute top-2 left-2 flex gap-2">
+      {isNew && (
+        <span class="bg-cookie-accent text-white text-xs px-2 py-1 rounded-full">Nuevo</span>
+      )}
+      {isBestseller && (
+        <span class="bg-cookie-brown text-white text-xs px-2 py-1 rounded-full">Más vendido</span>
+      )}
+      {discount > 0 && (
+        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">-{discount}%</span>
+      )}
+    </div>
+
+    <button class="add-to-favorites absolute top-2 right-2 bg-white rounded-full p-2 text-gray-400 hover:text-cookie-accent transition-colors">
+      <i class="far fa-heart"></i>
+    </button>
+    
+    <div class="absolute bottom-0 left-0 w-full p-2 bg-white/80 backdrop-blur-sm">
+      <div class="flex justify-between items-center">
+        <div class="flex text-yellow-400 text-xs">
+          {Array(Math.floor(rating)).fill(0).map(() => (
+            <i class="fas fa-star"></i>
+          ))}
+          {rating % 1 > 0 && <i class="fas fa-star-half-alt"></i>}
+        </div>
+        <span class="text-xs text-cookie-dark">{category}</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="p-4">
+    <h3 class="text-lg font-medium mb-1 text-cookie-dark">{name}</h3>
+    <p class="text-sm text-gray-600 mb-3 line-clamp-2">{description}</p>
+    
+    <div class="flex justify-between items-center">
+      <div class="flex items-center">
+        <span class="font-bold text-lg text-cookie-brown">${finalPrice}</span>
+        {discount > 0 && (
+          <span class="text-sm text-gray-400 line-through ml-2">${price.toFixed(2)}</span>
+        )}
+      </div>
+      <button class="add-to-cart btn bg-cookie-light hover:bg-cookie-brown hover:text-white text-cookie-dark py-1 px-3 rounded-full text-sm transition-all">
+        <i class="fas fa-shopping-cart mr-1"></i> Añadir
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .product-card {
+    --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  // Esta función se ejecutará en el cliente para añadir la funcionalidad al carrito de compras
+  document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const productCard = button.closest('.product-card');
+      if (!productCard) return;
+      
+      const productId = (productCard as HTMLElement).dataset.productId || '';
+      const productNameEl = productCard.querySelector('h3');
+      const productName = productNameEl ? productNameEl.textContent || '' : '';
+      const productPriceEl = productCard.querySelector('.text-cookie-brown');
+      const productPrice = productPriceEl?.textContent ? parseFloat(productPriceEl.textContent.replace('$', '')) : 0;
+      const productImageEl = productCard.querySelector('img');
+      const productImage = productImageEl ? productImageEl.src || '' : '';
+      
+      // Simulación simple de añadir al carrito
+      addToCart(productId, productName, productPrice, productImage);
+      
+      // Feedback visual
+      button.innerHTML = '<i class="fas fa-check mr-1"></i> Añadido';
+      button.classList.add('bg-green-500', 'text-white');
+      button.classList.remove('bg-cookie-light', 'text-cookie-dark');
+      
+      setTimeout(() => {
+        button.innerHTML = '<i class="fas fa-shopping-cart mr-1"></i> Añadir';
+        button.classList.remove('bg-green-500', 'text-white');
+        button.classList.add('bg-cookie-light', 'text-cookie-dark');
+      }, 1500);
+    });
+  });
+  
+  document.querySelectorAll('.add-to-favorites').forEach(button => {
+    button.addEventListener('click', () => {
+      const icon = button.querySelector('i');
+      if (icon) {
+        icon.classList.toggle('far');
+        icon.classList.toggle('fas');
+        icon.classList.toggle('text-cookie-accent');
+      }
+    });
+  });
+  
+  // Función para simular añadir al carrito
+  // Define the cart item type
+  interface CartItem {
+    id: string;
+    name: string;
+    price: number;
+    image: string;
+    quantity: number;
+  }
+
+  function addToCart(id: string, name: string, price: number, image: string) {
+    // Obtiene el carrito actual del localStorage o inicializa uno vacío
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]') as CartItem[];
+    
+    // Verifica si el producto ya está en el carrito
+    const existingItemIndex = cart.findIndex((item: CartItem) => item.id === id);
+    
+    if (existingItemIndex > -1) {
+      // Si ya existe, incrementar cantidad
+      cart[existingItemIndex].quantity += 1;
+    } else {
+      // Si no existe, añadir nuevo item
+      cart.push({
+        id,
+        name,
+        price,
+        image,
+        quantity: 1
+      });
+    }
+    
+    // Guardar carrito actualizado
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    // Actualizar contador de items en el carrito
+    updateCartCount();
+    
+    // Actualizar el contenido del carrito
+    updateCartItems();
+  }
+  
+  // Función para actualizar el contador del carrito
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const cartCount = cart.reduce((total: number, item: CartItem) => total + item.quantity, 0);
+    
+    // Actualizar contador en el header para desktop y móvil
+    const cartCountElement = document.getElementById('cart-count');
+    if (cartCountElement) {
+      cartCountElement.textContent = cartCount.toString();
+    }
+    document.querySelectorAll('.mobile-cart-count').forEach(el => {
+      el.textContent = cartCount;
+    });
+  }
+  
+  // Función para actualizar los items mostrados en el carrito
+  function updateCartItems() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartTotalElement = document.getElementById('cart-total');
+    if (!cartItemsContainer || !cartTotalElement) return;
+    
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = '<p class="text-gray-500 italic text-center py-4">Tu carrito está vacío</p>';
+      cartTotalElement.textContent = '$0.00';
+      return;
+    }
+    
+    let total = 0;
+    let html = '';
+    
+    cart.forEach((item: CartItem) => {
+      const itemTotal = item.price * item.quantity;
+      total += itemTotal;
+      
+      html += `
+        <div class="flex items-center gap-2 py-2 border-b" data-cart-item="${item.id}">
+          <img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-cover rounded">
+          <div class="flex-1">
+            <p class="text-sm font-medium">${item.name}</p>
+            <div class="flex justify-between items-center">
+              <p class="text-xs text-gray-500">$${item.price} x ${item.quantity}</p>
+              <div class="flex items-center gap-1">
+                <button class="decrease-quantity text-xs bg-gray-100 hover:bg-gray-200 w-5 h-5 rounded flex items-center justify-center">-</button>
+                <span class="text-xs">${item.quantity}</span>
+                <button class="increase-quantity text-xs bg-gray-100 hover:bg-gray-200 w-5 h-5 rounded flex items-center justify-center">+</button>
+                <button class="remove-item ml-1 text-red-500 hover:text-red-700">
+                  <i class="fas fa-trash-alt text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    
+    cartItemsContainer.innerHTML = html;
+    cartTotalElement.textContent = `$${total.toFixed(2)}`;
+    
+    // Añadir eventos a los botones de control de cantidad
+    document.querySelectorAll('.decrease-quantity').forEach(button => {
+      button.addEventListener('click', function(this: HTMLElement) {
+        const itemId = (this.closest('[data-cart-item]') as HTMLElement)?.dataset.cartItem || '';
+        updateItemQuantity(itemId, -1);
+      });
+    });
+    
+    document.querySelectorAll('.increase-quantity').forEach(button => {
+      button.addEventListener('click', function(this: HTMLElement) {
+        const itemId = (this.closest('[data-cart-item]') as HTMLElement)?.dataset.cartItem || '';
+        updateItemQuantity(itemId, 1);
+      });
+    });
+    
+    document.querySelectorAll('.remove-item').forEach(button => {
+      button.addEventListener('click', function(this: HTMLElement) {
+        const itemId = (this.closest('[data-cart-item]') as HTMLElement)?.dataset.cartItem || '';
+        removeItemFromCart(itemId);
+      });
+    });
+  }
+  
+  // Función para actualizar la cantidad de un item
+  function updateItemQuantity(id: string, change: number) {
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]') as CartItem[];
+    const itemIndex = cart.findIndex((item: CartItem) => item.id === id);
+    
+    if (itemIndex !== -1) {
+      cart[itemIndex].quantity += change;
+      
+      if (cart[itemIndex].quantity <= 0) {
+        // Si la cantidad llega a 0 o menos, eliminar el item
+        cart.splice(itemIndex, 1);
+      }
+      
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      updateCartItems();
+    }
+  }
+  
+  // Función para eliminar un item del carrito
+  function removeItemFromCart(id: string) {
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    cart = cart.filter((item: CartItem) => item.id !== id);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    updateCartItems();
+  }
+  
+  // Inicializar carrito al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
+    updateCartCount();
+    updateCartItems();
+  });
+</script>

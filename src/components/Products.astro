@@ -1,0 +1,244 @@
+---
+import ProductCard from './ProductCard.astro';
+
+// Datos de productos (simulados)
+const products = [
+  {
+    id: "p1",
+    name: "Cookie de Chocolate Clásica",
+    description: "Nuestra galleta más vendida con trozos de chocolate real y un toque de vainilla.",
+    price: 2.50,
+    image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&auto=format&fit=crop&w=600",
+    category: "Clásicas",
+    rating: 4.9,
+    isBestseller: true,
+    discount: 0
+  },
+  {
+    id: "p2",
+    name: "Cookie de Chispas Arcoíris",
+    description: "Una galleta divertida y colorida con chispas de chocolate de colores.",
+    price: 2.75,
+    image: "https://images.unsplash.com/photo-1618923850107-d1a234d7a400?q=80&auto=format&fit=crop&w=600",
+    category: "Especiales",
+    rating: 4.6,
+    isNew: true,
+    discount: 0
+  },
+  {
+    id: "p3",
+    name: "Cookie de Mantequilla de Maní",
+    description: "Una combinación perfecta de mantequilla de maní y chocolate que derrite el paladar.",
+    price: 3.00,
+    image: "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?q=80&auto=format&fit=crop&w=600",
+    category: "Especiales",
+    rating: 4.7,
+    discount: 10
+  },
+  {
+    id: "p4",
+    name: "Cookie de Avena y Pasas",
+    description: "Una opción más saludable con avena integral y pasas jugosas.",
+    price: 2.25,
+    image: "https://images.unsplash.com/photo-1605279575776-72366a8190bc?q=80&auto=format&fit=crop&w=600",
+    category: "Saludables",
+    rating: 4.5,
+    discount: 0
+  },
+  {
+    id: "p5",
+    name: "Cookie Triple Chocolate",
+    description: "Para los amantes del chocolate: una combinación de chocolate blanco, negro y con leche.",
+    price: 3.50,
+    image: "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?q=80&auto=format&fit=crop&w=600",
+    category: "Premium",
+    rating: 4.9,
+    isBestseller: true,
+    discount: 0
+  },
+  {
+    id: "p6",
+    name: "Cookie de Limón",
+    description: "Una galleta refrescante con sabor a limón y un glaseado dulce.",
+    price: 2.75,
+    image: "https://images.unsplash.com/photo-1560156710-0580247f9f63?q=80&auto=format&fit=crop&w=600",
+    category: "Especiales",
+    rating: 4.3,
+    isNew: true,
+    discount: 15
+  },
+  {
+    id: "p7",
+    name: "Cookie de Nueces y Caramelo",
+    description: "Una combinación de nueces tostadas y caramelo suave en una galleta perfecta.",
+    price: 3.25,
+    image: "https://images.unsplash.com/photo-1546371852-695df74cfe9a?q=80&auto=format&fit=crop&w=600",
+    category: "Premium",
+    rating: 4.8,
+    discount: 0
+  },
+  {
+    id: "p8",
+    name: "Cookie Sin Gluten",
+    description: "Elaborada con ingredientes especiales para quienes no toleran el gluten.",
+    price: 3.00,
+    image: "https://images.unsplash.com/photo-1623428335340-b9d1ce530c93?q=80&auto=format&fit=crop&w=600",
+    category: "Saludables",
+    rating: 4.4,
+    discount: 0
+  }
+];
+
+// Extraer categorías únicas
+const categories = ["Todas", ...new Set(products.map(product => product.category))];
+---
+
+<section id="productos" class="py-16 bg-white">
+  <div class="container-custom">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold mb-3 text-cookie-brown">Nuestras Galletas</h2>
+      <p class="text-lg max-w-2xl mx-auto text-cookie-dark/80">
+        Descubre nuestra selección de galletas artesanales, elaboradas con los mejores ingredientes y mucho amor.
+      </p>
+    </div>
+    
+    <!-- Filtros de categorías -->
+    <div class="flex flex-wrap justify-center gap-2 mb-8">
+      {categories.map((category) => (
+        <button
+          class="category-filter px-4 py-2 rounded-full border border-cookie-light transition-colors duration-200 text-sm"
+          data-category={category === "Todas" ? "all" : category}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+    
+    <!-- Búsqueda -->
+    <div class="max-w-md mx-auto mb-8">
+      <div class="relative">
+        <input
+          type="text"
+          id="product-search"
+          placeholder="Buscar galletas..."
+          class="w-full p-3 pl-10 rounded-full border border-cookie-light focus:outline-none focus:ring-2 focus:ring-cookie-accent/50"
+        />
+        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-cookie-brown/70"></i>
+      </div>
+    </div>
+    
+    <!-- Grid de productos -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="products-grid">
+      {products.map((product) => (
+        <ProductCard
+          id={product.id}
+          name={product.name}
+          description={product.description}
+          price={product.price}
+          image={product.image}
+          category={product.category}
+          rating={product.rating}
+          isNew={product.isNew}
+          isBestseller={product.isBestseller}
+          discount={product.discount}
+        />
+      ))}
+    </div>
+    
+    <!-- Estado de resultados -->
+    <div id="no-results" class="hidden text-center py-8">
+      <p class="text-lg text-gray-500">No se encontraron productos con esa búsqueda.</p>
+      <button id="reset-filters" class="mt-4 btn btn-secondary">Mostrar todos los productos</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Lógica para los filtros de productos
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.category-filter');
+    const productCards = document.querySelectorAll('.product-card');
+    const searchInput = document.getElementById('product-search');
+    const noResults = document.getElementById('no-results');
+    const resetButton = document.getElementById('reset-filters');
+    
+    // Establecer el filtro "Todas" como activo por defecto
+    const allCategoryButton = document.querySelector('[data-category="all"]');
+    if (allCategoryButton) {
+      allCategoryButton.classList.add('bg-cookie-brown', 'text-white');
+    }
+    
+      const activeCategoryButton = document.querySelector('.category-filter.bg-cookie-brown');
+      const activeCategory = activeCategoryButton ? (activeCategoryButton as HTMLElement).dataset.category : 'all';
+    function filterProducts() {
+      const searchTerm = searchInput ? (searchInput as HTMLInputElement).value.toLowerCase() : '';
+      const activeCategory = (document.querySelector('.category-filter.bg-cookie-brown') as HTMLElement)?.dataset.category || 'all';
+      
+      let hasVisibleProducts = false;
+      
+      productCards.forEach(card => {
+        const productNameEl = card.querySelector('h3');
+        const productDescEl = card.querySelector('p');
+        const productName = productNameEl ? productNameEl.textContent?.toLowerCase() || '' : '';
+        const productDescription = productDescEl ? productDescEl.textContent?.toLowerCase() || '' : '';
+        const productCategory = (card as HTMLElement).dataset.category;
+        
+        // Comprobar si coincide con la búsqueda y la categoría
+        const matchesSearch = productName.includes(searchTerm) || productDescription.includes(searchTerm);
+        const matchesCategory = activeCategory === 'all' || productCategory === activeCategory;
+        
+        // Mostrar u ocultar el producto
+        if (matchesSearch && matchesCategory) {
+          card.classList.remove('hidden');
+          hasVisibleProducts = true;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      
+      // Mostrar u ocultar mensaje de "no hay resultados"
+      if (hasVisibleProducts) {
+        if (noResults) noResults.classList.add('hidden');
+      } else {
+        if (noResults) noResults.classList.remove('hidden');
+      }
+    }
+    
+    // Evento para filtros de categoría
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Eliminar clase activa de todos los botones
+        filterButtons.forEach(btn => btn.classList.remove('bg-cookie-brown', 'text-white'));
+        
+        // Añadir clase activa al botón clickeado
+        button.classList.add('bg-cookie-brown', 'text-white');
+        
+        // Filtrar productos
+        filterProducts();
+      });
+    });
+    
+    // Evento para búsqueda
+    if (searchInput) {
+      searchInput.addEventListener('input', filterProducts);
+    }
+    
+    // Evento para restablecer filtros
+    if (resetButton) {
+      resetButton.addEventListener('click', () => {
+        if (searchInput) {
+          (searchInput as HTMLInputElement).value = '';
+        }
+        
+        // Activar la categoría "Todas"
+        filterButtons.forEach(btn => btn.classList.remove('bg-cookie-brown', 'text-white'));
+        const allCategoryButton = document.querySelector('[data-category="all"]');
+        if (allCategoryButton) {
+          allCategoryButton.classList.add('bg-cookie-brown', 'text-white');
+        }
+        
+        filterProducts();
+      });
+    }
+  });
+</script>
