@@ -1,0 +1,705 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Finalizar Compra | SereniCookies">
+  <Header />
+  
+  <main class="bg-cookie-cream/30 py-10">
+    <div class="container-custom">
+      <h1 class="text-3xl font-bold text-cookie-brown mb-8 font-serif text-center md:text-left">Finalizar Compra</h1>
+      
+      <!-- Proceso de checkout -->
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Columna izquierda: Formulario de datos -->
+        <div class="flex-1 bg-white p-6 rounded-xl shadow-md">
+          <!-- Pasos de checkout -->
+          <div class="mb-8">
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-cookie-brown text-white rounded-full flex items-center justify-center font-bold">1</div>
+                <span class="ml-3 font-medium">Datos de contacto</span>
+              </div>
+              <div class="flex-1 mx-4 h-1 bg-cookie-light/30"></div>
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-cookie-light/50 text-cookie-brown rounded-full flex items-center justify-center font-bold">2</div>
+                <span class="ml-3 text-gray-500">Envío</span>
+              </div>
+              <div class="flex-1 mx-4 h-1 bg-cookie-light/30"></div>
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-cookie-light/50 text-cookie-brown rounded-full flex items-center justify-center font-bold">3</div>
+                <span class="ml-3 text-gray-500">Pago</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Formulario de contacto (Paso 1) -->
+          <div id="step1" class="mb-8">
+            <h3 class="text-xl font-bold mb-4 text-cookie-dark">Información de Contacto</h3>
+            <form id="contact-form" class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="firstname" class="block text-sm font-medium text-cookie-dark mb-1">Nombre</label>
+                  <input type="text" id="firstname" class="w-full p-3 border border-cookie-light/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cookie-accent/50" required>
+                </div>
+                <div>
+                  <label for="lastname" class="block text-sm font-medium text-cookie-dark mb-1">Apellidos</label>
+                  <input type="text" id="lastname" class="w-full p-3 border border-cookie-light/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cookie-accent/50" required>
+                </div>
+              </div>
+              
+              <div>
+                <label for="email" class="block text-sm font-medium text-cookie-dark mb-1">Email</label>
+                <input type="email" id="email" class="w-full p-3 border border-cookie-light/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cookie-accent/50" required>
+              </div>
+              
+              <div>
+                <label for="phone" class="block text-sm font-medium text-cookie-dark mb-1">Teléfono</label>
+                <input type="tel" id="phone" class="w-full p-3 border border-cookie-light/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cookie-accent/50" required>
+              </div>
+              
+              <div class="pt-4">
+                <button type="button" id="continue-to-shipping" class="btn btn-primary w-full">Continuar a Envío</button>
+              </div>
+            </form>
+          </div>
+          
+          <!-- Formulario de envío (Paso 2 - Inicialmente oculto) -->
+          <div id="step2" class="hidden mb-8">
+            <div class="flex items-center mb-6">
+              <button id="back-to-contact" class="text-cookie-brown hover:text-cookie-accent flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> Volver
+              </button>
+            </div>
+            
+            <h3 class="text-xl font-bold mb-4 text-cookie-dark">Dirección de Envío</h3>
+            <form id="shipping-form" class="space-y-4">
+              <div>
+                <label for="address" class="block text-sm font-medium text-cookie-dark mb-1">Dirección</label>
+                <input type="text" id="address" class="w-full p-3 border border-cookie-light/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cookie-accent/50" required>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="city" class="block text-sm font-medium text-cookie-dark mb-1">Ciudad</label>
+                  <input type="text" id="city" class="w-full p-3 border border-cookie-light/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cookie-accent/50" required>
+                </div>
+                <div>
+                  <label for="postcode" class="block text-sm font-medium text-cookie-dark mb-1">Código Postal</label>
+                  <input type="text" id="postcode" class="w-full p-3 border border-cookie-light/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cookie-accent/50" required>
+                </div>
+              </div>
+              
+              <div>
+                <label for="country" class="block text-sm font-medium text-cookie-dark mb-1">País</label>
+                <select id="country" class="w-full p-3 border border-cookie-light/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cookie-accent/50">
+                  <option value="ES">España</option>
+                  <option value="MX">México</option>
+                  <option value="AR">Argentina</option>
+                  <option value="CO">Colombia</option>
+                  <option value="CL">Chile</option>
+                  <option value="PE">Perú</option>
+                </select>
+              </div>
+              
+              <div class="flex items-center mt-4">
+                <input type="checkbox" id="save-info" class="mr-2">
+                <label for="save-info" class="text-sm text-cookie-dark">Guardar esta información para futuras compras</label>
+              </div>
+              
+              <div class="pt-4">
+                <button type="button" id="continue-to-payment" class="btn btn-primary w-full">Continuar a Pago</button>
+              </div>
+            </form>
+          </div>
+          
+          <!-- Formulario de pago (Paso 3 - Inicialmente oculto) -->
+          <div id="step3" class="hidden mb-8">
+            <div class="flex items-center mb-6">
+              <button id="back-to-shipping" class="text-cookie-brown hover:text-cookie-accent flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> Volver
+              </button>
+            </div>
+            
+            <h3 class="text-xl font-bold mb-4 text-cookie-dark">Información de Pago</h3>
+            
+            <div class="mb-4">
+              <p class="text-sm text-gray-500 mb-4">Métodos de pago disponibles:</p>
+              
+              <div class="grid grid-cols-4 gap-2">
+                <div class="border border-cookie-light/50 rounded-lg p-2 flex items-center justify-center cursor-pointer payment-method-option active">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" alt="Visa" class="h-8 object-contain">
+                </div>
+                <div class="border border-cookie-light/50 rounded-lg p-2 flex items-center justify-center cursor-pointer payment-method-option">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="Mastercard" class="h-8 object-contain">
+                </div>
+                <div class="border border-cookie-light/50 rounded-lg p-2 flex items-center justify-center cursor-pointer payment-method-option">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1200px-PayPal.svg.png" alt="PayPal" class="h-8 object-contain">
+                </div>
+                <div class="border border-cookie-light/50 rounded-lg p-2 flex items-center justify-center cursor-pointer payment-method-option">
+                  <i class="fas fa-money-bill-wave text-2xl text-green-600"></i>
+                </div>
+              </div>
+            </div>
+            
+            <form id="payment-form" class="space-y-4">
+              <div>
+                <label for="card-name" class="block text-sm font-medium text-cookie-dark mb-1">Nombre en la tarjeta</label>
+                <input type="text" id="card-name" class="w-full p-3 border border-cookie-light/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cookie-accent/50" placeholder="Como aparece en la tarjeta" required>
+              </div>
+              
+              <div>
+                <label for="card-number" class="block text-sm font-medium text-cookie-dark mb-1">Número de tarjeta</label>
+                <div class="relative">
+                  <input type="text" id="card-number" class="w-full p-3 pl-10 border border-cookie-light/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cookie-accent/50" placeholder="XXXX XXXX XXXX XXXX" required>
+                  <i class="fas fa-credit-card absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label for="expiry-date" class="block text-sm font-medium text-cookie-dark mb-1">Fecha de expiración</label>
+                  <input type="text" id="expiry-date" class="w-full p-3 border border-cookie-light/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cookie-accent/50" placeholder="MM/AA" required>
+                </div>
+                <div>
+                  <label for="cvv" class="block text-sm font-medium text-cookie-dark mb-1">CVV</label>
+                  <input type="text" id="cvv" class="w-full p-3 border border-cookie-light/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cookie-accent/50" placeholder="123" required>
+                </div>
+              </div>
+              
+              <div class="pt-4">
+                <button type="button" id="complete-order" class="btn btn-primary w-full">Confirmar Pedido</button>
+              </div>
+            </form>
+          </div>
+          
+          <!-- Confirmación de pedido (Paso 4 - Inicialmente oculto) -->
+          <div id="step4" class="hidden text-center py-8">
+            <div class="w-20 h-20 bg-green-100 rounded-full mx-auto flex items-center justify-center mb-6">
+              <i class="fas fa-check text-4xl text-green-500"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2 text-cookie-dark">¡Pedido Confirmado!</h3>
+            <p class="text-gray-600 mb-6">Tu pedido #SC12345 ha sido procesado correctamente.</p>
+            
+            <div class="bg-cookie-light/20 p-4 rounded-lg mb-6">
+              <p class="text-sm text-cookie-dark">Se ha enviado un correo de confirmación a <span class="font-medium confirmation-email">tu@email.com</span></p>
+            </div>
+            
+            <p class="text-gray-600 mb-2">Estimación de entrega:</p>
+            <p class="text-cookie-brown font-bold text-xl mb-8">2-3 días laborables</p>
+            
+            <a href="/" class="btn btn-primary">Volver a la tienda</a>
+          </div>
+        </div>
+        
+        <!-- Columna derecha: Resumen del pedido -->
+        <div class="lg:w-1/3">
+          <div class="bg-white p-6 rounded-xl shadow-md sticky top-24">
+            <h3 class="text-xl font-bold mb-4 text-cookie-dark border-b pb-2">Tu Pedido</h3>
+            
+            <!-- Productos en el carrito -->
+            <div id="checkout-items" class="max-h-80 overflow-y-auto mb-4">
+              <!-- Los productos se cargarán dinámicamente -->
+              <div class="text-center text-gray-500 py-8">
+                <p class="italic">Cargando tu carrito...</p>
+              </div>
+            </div>
+            
+            <!-- Resumen de costos -->
+            <div class="border-t pt-4 space-y-2">
+              <div class="flex justify-between">
+                <span class="text-gray-600">Subtotal</span>
+                <span id="checkout-subtotal" class="font-medium">$0.00</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Envío</span>
+                <span id="checkout-shipping" class="font-medium">$3.99</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Impuestos</span>
+                <span id="checkout-tax" class="font-medium">$0.00</span>
+              </div>
+              <div class="flex justify-between border-t pt-2 mt-4">
+                <span class="font-bold">Total</span>
+                <span id="checkout-total" class="font-bold text-cookie-brown">$0.00</span>
+              </div>
+            </div>
+            
+            <!-- Cupón de descuento -->
+            <div class="mt-6">
+              <div class="flex gap-2">
+                <input type="text" id="coupon-code" placeholder="Código de descuento" class="flex-1 p-2 border border-cookie-light/50 rounded-lg">
+                <button type="button" id="apply-coupon" class="px-4 py-2 bg-cookie-light text-cookie-dark rounded-lg hover:bg-cookie-light/80 transition-colors">Aplicar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<script>
+  // Tipos
+  interface CartItem {
+    id: string;
+    name: string;
+    price: number;
+    image: string;
+    quantity: number;
+  }
+  
+  // Navegación entre pasos
+  document.addEventListener('DOMContentLoaded', () => {
+    // Referencias a los pasos
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+    const step4 = document.getElementById('step4');
+    
+    // Referencias a los botones
+    const continueToShipping = document.getElementById('continue-to-shipping');
+    const backToContact = document.getElementById('back-to-contact');
+    const continueToPayment = document.getElementById('continue-to-payment');
+    const backToShipping = document.getElementById('back-to-shipping');
+    const completeOrder = document.getElementById('complete-order');
+    
+    // Botones para avanzar
+    if (continueToShipping) {
+      continueToShipping.addEventListener('click', () => {
+        if (validateContactForm()) {
+          step1?.classList.add('hidden');
+          step2?.classList.remove('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          updateCheckoutSteps(2);
+        }
+      });
+    }
+    
+    if (continueToPayment) {
+      continueToPayment.addEventListener('click', () => {
+        if (validateShippingForm()) {
+          step2?.classList.add('hidden');
+          step3?.classList.remove('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          updateCheckoutSteps(3);
+        }
+      });
+    }
+    
+    if (completeOrder) {
+      completeOrder.addEventListener('click', () => {
+        if (validatePaymentForm()) {
+          showLoadingOverlay();
+          
+          // Simulamos un proceso de pago (3 segundos)
+          setTimeout(() => {
+            hideLoadingOverlay();
+            step3?.classList.add('hidden');
+            step4?.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Obtenemos el email del usuario para mostrarlo en la confirmación
+            const email = (document.getElementById('email') as HTMLInputElement)?.value;
+            document.querySelector('.confirmation-email')!.textContent = email;
+            
+            // Limpiamos el carrito
+            localStorage.removeItem('cart');
+          }, 3000);
+        }
+      });
+    }
+    
+    // Botones para retroceder
+    if (backToContact) {
+      backToContact.addEventListener('click', () => {
+        step2?.classList.add('hidden');
+        step1?.classList.remove('hidden');
+        updateCheckoutSteps(1);
+      });
+    }
+    
+    if (backToShipping) {
+      backToShipping.addEventListener('click', () => {
+        step3?.classList.add('hidden');
+        step2?.classList.remove('hidden');
+        updateCheckoutSteps(2);
+      });
+    }
+    
+    // Selección de método de pago
+    const paymentOptions = document.querySelectorAll('.payment-method-option');
+    paymentOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        paymentOptions.forEach(opt => opt.classList.remove('active', 'border-cookie-brown'));
+        option.classList.add('active', 'border-cookie-brown');
+      });
+    });
+    
+    // Cargar los productos del carrito
+    loadCheckoutItems();
+    
+    // Aplicar cupón
+    const applyCouponButton = document.getElementById('apply-coupon') as HTMLButtonElement | null;
+    if (applyCouponButton) {
+      applyCouponButton.addEventListener('click', () => {
+        const couponInput = document.getElementById('coupon-code') as HTMLInputElement;
+        if (couponInput && couponInput.value.trim()) {
+          // Simulamos la validación del cupón
+          if (couponInput.value.toUpperCase() === 'SERENIDAD' || couponInput.value.toUpperCase() === 'WELCOME15') {
+            applyCouponButton.innerHTML = '<i class="fas fa-check"></i>';
+            applyCouponButton.classList.add('bg-green-500', 'text-white');
+            applyCouponButton.disabled = true;
+            couponInput.disabled = true;
+            
+            // Aplicar descuento (15%)
+            updateCartTotals(0.15);
+            
+            // Mostrar notificación
+            showNotification('¡Cupón aplicado! 15% de descuento', 'success');
+          } else {
+            showNotification('Cupón no válido', 'error');
+          }
+        }
+      });
+    }
+  });
+  
+  // Cargar los productos del carrito en la página de checkout
+  function loadCheckoutItems() {
+    const checkoutItemsContainer = document.getElementById('checkout-items');
+    if (!checkoutItemsContainer) return;
+    
+    // Obtener el carrito del localStorage
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]') as CartItem[];
+    
+    // Si el carrito está vacío
+    if (cart.length === 0) {
+      checkoutItemsContainer.innerHTML = `
+        <div class="text-center py-6">
+          <p class="text-gray-500 mb-4">Tu carrito está vacío</p>
+          <a href="/#productos" class="text-cookie-brown underline">Volver a la tienda</a>
+        </div>
+      `;
+      updateCartTotals();
+      return;
+    }
+    
+    // Generar HTML para cada producto
+    let html = '';
+    cart.forEach(item => {
+      html += `
+        <div class="flex py-3 border-b">
+          <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
+          <div class="ml-3 flex-1">
+            <div class="flex justify-between">
+              <h4 class="font-medium text-cookie-dark">${item.name}</h4>
+              <span class="font-bold">$${(item.price * item.quantity).toFixed(2)}</span>
+            </div>
+            <div class="flex justify-between text-sm text-gray-500">
+              <span>$${item.price.toFixed(2)} x ${item.quantity}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    
+    checkoutItemsContainer.innerHTML = html;
+    
+    // Actualizar los totales
+    updateCartTotals();
+  }
+  
+  // Función para actualizar los totales del carrito
+  function updateCartTotals(discountPercentage = 0) {
+    const subtotalElement = document.getElementById('checkout-subtotal');
+    const shippingElement = document.getElementById('checkout-shipping');
+    const taxElement = document.getElementById('checkout-tax');
+    const totalElement = document.getElementById('checkout-total');
+    
+    if (!subtotalElement || !shippingElement || !taxElement || !totalElement) return;
+    
+    // Obtener el carrito
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]') as CartItem[];
+    
+    // Calcular subtotal
+    const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    
+    // Gastos de envío (fijos a $3.99)
+    const shipping = subtotal > 0 ? 3.99 : 0;
+    
+    // Impuestos (10% del subtotal)
+    const taxRate = 0.10;
+    const tax = subtotal * taxRate;
+    
+    // Calcular descuento si lo hay
+    const discount = subtotal * discountPercentage;
+    
+    // Total
+    const total = subtotal - discount + shipping + tax;
+    
+    // Actualizar los elementos en la página
+    subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+    shippingElement.textContent = subtotal > 0 ? `$${shipping.toFixed(2)}` : 'Gratis';
+    taxElement.textContent = `$${tax.toFixed(2)}`;
+    totalElement.textContent = `$${total.toFixed(2)}`;
+    
+    // Si hay descuento, añadimos una fila de descuento
+    const discountRow = document.querySelector('.discount-row');
+    if (discountPercentage > 0) {
+      if (!discountRow) {
+        const newDiscountRow = document.createElement('div');
+        newDiscountRow.className = 'flex justify-between discount-row';
+        newDiscountRow.innerHTML = `
+          <span class="text-gray-600">Descuento (15%)</span>
+          <span class="font-medium text-green-600">-$${discount.toFixed(2)}</span>
+        `;
+        
+        // Insertar antes del elemento total
+        totalElement.parentElement?.parentElement?.insertBefore(
+          newDiscountRow, 
+          totalElement.parentElement
+        );
+      } else {
+        const discountAmountElement = discountRow.querySelector('span:last-child');
+        if (discountAmountElement) {
+          discountAmountElement.textContent = `-$${discount.toFixed(2)}`;
+        }
+      }
+    }
+  }
+  
+  // Validación de formularios
+  function validateContactForm(): boolean {
+    const firstname = document.getElementById('firstname') as HTMLInputElement;
+    const lastname = document.getElementById('lastname') as HTMLInputElement;
+    const email = document.getElementById('email') as HTMLInputElement;
+    const phone = document.getElementById('phone') as HTMLInputElement;
+    
+    // Validación simple
+    if (!firstname.value.trim()) {
+      showNotification('Ingresa tu nombre', 'error');
+      firstname.focus();
+      return false;
+    }
+    
+    if (!lastname.value.trim()) {
+      showNotification('Ingresa tus apellidos', 'error');
+      lastname.focus();
+      return false;
+    }
+    
+    if (!email.value.trim() || !email.value.includes('@')) {
+      showNotification('Ingresa un email válido', 'error');
+      email.focus();
+      return false;
+    }
+    
+    if (!phone.value.trim() || phone.value.length < 8) {
+      showNotification('Ingresa un teléfono válido', 'error');
+      phone.focus();
+      return false;
+    }
+    
+    return true;
+  }
+  
+  function validateShippingForm(): boolean {
+    const address = document.getElementById('address') as HTMLInputElement;
+    const city = document.getElementById('city') as HTMLInputElement;
+    const postcode = document.getElementById('postcode') as HTMLInputElement;
+    
+    if (!address.value.trim()) {
+      showNotification('Ingresa tu dirección', 'error');
+      address.focus();
+      return false;
+    }
+    
+    if (!city.value.trim()) {
+      showNotification('Ingresa tu ciudad', 'error');
+      city.focus();
+      return false;
+    }
+    
+    if (!postcode.value.trim()) {
+      showNotification('Ingresa tu código postal', 'error');
+      postcode.focus();
+      return false;
+    }
+    
+    return true;
+  }
+  
+  function validatePaymentForm(): boolean {
+    const cardName = document.getElementById('card-name') as HTMLInputElement;
+    const cardNumber = document.getElementById('card-number') as HTMLInputElement;
+    const expiryDate = document.getElementById('expiry-date') as HTMLInputElement;
+    const cvv = document.getElementById('cvv') as HTMLInputElement;
+    
+    if (!cardName.value.trim()) {
+      showNotification('Ingresa el nombre en la tarjeta', 'error');
+      cardName.focus();
+      return false;
+    }
+    
+    if (!cardNumber.value.trim() || cardNumber.value.replace(/\s/g, '').length !== 16) {
+      showNotification('Ingresa un número de tarjeta válido (16 dígitos)', 'error');
+      cardNumber.focus();
+      return false;
+    }
+    
+    if (!expiryDate.value.trim() || !expiryDate.value.includes('/')) {
+      showNotification('Ingresa una fecha de expiración válida (MM/AA)', 'error');
+      expiryDate.focus();
+      return false;
+    }
+    
+    if (!cvv.value.trim() || cvv.value.length < 3) {
+      showNotification('Ingresa un CVV válido', 'error');
+      cvv.focus();
+      return false;
+    }
+    
+    return true;
+  }
+  
+  // Actualizar los pasos visuales del checkout
+  function updateCheckoutSteps(currentStep: number) {
+    const steps = document.querySelectorAll('.w-8.h-8');
+    const lines = document.querySelectorAll('.flex-1.mx-4.h-1');
+    const labels = document.querySelectorAll('.ml-3');
+    
+    // Restablecer todos los pasos
+    steps.forEach((step, index) => {
+      if (index < currentStep - 1) {
+        // Paso completado
+        step.classList.remove('bg-cookie-light/50', 'text-cookie-brown');
+        step.classList.add('bg-cookie-brown', 'text-white');
+        labels[index].classList.remove('text-gray-500');
+        labels[index].classList.add('text-cookie-dark');
+      } else if (index === currentStep - 1) {
+        // Paso actual
+        step.classList.remove('bg-cookie-light/50');
+        step.classList.add('bg-cookie-brown', 'text-white');
+        labels[index].classList.remove('text-gray-500');
+        labels[index].classList.add('text-cookie-dark');
+      } else {
+        // Paso futuro
+        step.classList.remove('bg-cookie-brown', 'text-white');
+        step.classList.add('bg-cookie-light/50', 'text-cookie-brown');
+        labels[index].classList.remove('text-cookie-dark');
+        labels[index].classList.add('text-gray-500');
+      }
+    });
+    
+    // Actualizar las líneas de conexión
+    lines.forEach((line, index) => {
+      if (index < currentStep - 1) {
+        line.classList.remove('bg-cookie-light/30');
+        line.classList.add('bg-cookie-brown/70');
+      } else {
+        line.classList.remove('bg-cookie-brown/70');
+        line.classList.add('bg-cookie-light/30');
+      }
+    });
+  }
+  
+  // Función para mostrar notificaciones
+  function showNotification(message: string, type: 'success' | 'error' | 'info') {
+    // Crear el elemento de notificación
+    const notification = document.createElement('div');
+    notification.className = 'fixed bottom-6 left-1/2 transform -translate-x-1/2 py-3 px-6 rounded-lg shadow-lg z-50 notification';
+    
+    // Añadir estilos según el tipo
+    if (type === 'success') {
+      notification.classList.add('bg-green-100', 'text-green-800', 'border-l-4', 'border-green-500');
+    } else if (type === 'error') {
+      notification.classList.add('bg-red-100', 'text-red-800', 'border-l-4', 'border-red-500');
+    } else {
+      notification.classList.add('bg-blue-100', 'text-blue-800', 'border-l-4', 'border-blue-500');
+    }
+    
+    // Añadir el mensaje
+    notification.innerHTML = `
+      <div class="flex items-center">
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
+        <span>${message}</span>
+      </div>
+    `;
+    
+    // Añadir al DOM
+    document.body.appendChild(notification);
+    
+    // Aplicar animación de entrada
+    setTimeout(() => {
+      notification.classList.add('show');
+    }, 10);
+    
+    // Eliminar después de un tiempo
+    setTimeout(() => {
+      notification.classList.remove('show');
+      notification.classList.add('hide');
+      
+      // Eliminar del DOM después de la animación
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 300);
+    }, 3000);
+  }
+  
+  // Mostrar/ocultar overlay de carga
+  function showLoadingOverlay() {
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50';
+    overlay.id = 'loading-overlay';
+    
+    overlay.innerHTML = `
+      <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+        <div class="w-16 h-16 border-4 border-cookie-brown/20 border-t-cookie-brown rounded-full animate-spin mb-4 mx-auto"></div>
+        <p class="text-cookie-dark">Procesando tu pedido...</p>
+      </div>
+    `;
+    
+    document.body.appendChild(overlay);
+  }
+  
+  function hideLoadingOverlay() {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) {
+      document.body.removeChild(overlay);
+    }
+  }
+  
+  // Añadir estilos para las notificaciones
+  document.addEventListener('DOMContentLoaded', () => {
+    const style = document.createElement('style');
+    style.textContent = `
+      .notification {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+        transition: all 0.3s ease;
+      }
+      .notification.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      .notification.hide {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+      }
+      .payment-method-option {
+        transition: all 0.2s;
+      }
+      .payment-method-option.active {
+        border-color: #8B4513;
+        transform: scale(1.05);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+    `;
+    document.head.appendChild(style);
+  });
+</script>

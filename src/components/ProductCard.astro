@@ -122,6 +122,9 @@ const finalPrice = discount > 0 ? (price - (price * discount / 100)).toFixed(2) 
       button.classList.add('bg-green-500', 'text-white');
       button.classList.remove('bg-cookie-light', 'text-cookie-dark');
       
+      // Mostrar animación de producto añadido
+      showAddToCartAnimation(productImage);
+      
       setTimeout(() => {
         button.innerHTML = '<i class="fas fa-shopping-cart mr-1"></i> Añadir';
         button.classList.remove('bg-green-500', 'text-white');
@@ -129,6 +132,52 @@ const finalPrice = discount > 0 ? (price - (price * discount / 100)).toFixed(2) 
       }, 1500);
     });
   });
+  
+  // Función para mostrar una animación atractiva cuando se añade un producto
+  function showAddToCartAnimation(productImage: string) {
+    // Crear el elemento de notificación
+    const notification = document.createElement('div');
+    notification.className = 'fixed z-50 top-24 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-lg p-4 flex items-center gap-3 cart-notification';
+    
+    // Crear la imagen del producto
+    const img = document.createElement('img');
+    img.src = productImage;
+    img.className = 'w-12 h-12 object-cover rounded';
+    notification.appendChild(img);
+    
+    // Crear el texto
+    const text = document.createElement('div');
+    text.innerHTML = `
+      <p class="font-medium text-cookie-brown">¡Producto añadido!</p>
+      <p class="text-sm text-gray-500">Añadido a tu carrito</p>
+    `;
+    notification.appendChild(text);
+    
+    // Añadir icono de éxito
+    const icon = document.createElement('div');
+    icon.className = 'ml-auto text-green-500 text-xl';
+    icon.innerHTML = '<i class="fas fa-check-circle"></i>';
+    notification.appendChild(icon);
+    
+    // Añadir al DOM
+    document.body.appendChild(notification);
+    
+    // Aplicar animación de entrada
+    setTimeout(() => {
+      notification.classList.add('show');
+    }, 10);
+    
+    // Eliminar después de un tiempo
+    setTimeout(() => {
+      notification.classList.remove('show');
+      notification.classList.add('hide');
+      
+      // Eliminar del DOM después de la animación
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 300);
+    }, 2500);
+  }
   
   document.querySelectorAll('.add-to-favorites').forEach(button => {
     button.addEventListener('click', () => {
@@ -141,7 +190,6 @@ const finalPrice = discount > 0 ? (price - (price * discount / 100)).toFixed(2) 
     });
   });
   
-  // Función para simular añadir al carrito
   // Define the cart item type
   interface CartItem {
     id: string;
@@ -193,7 +241,7 @@ const finalPrice = discount > 0 ? (price - (price * discount / 100)).toFixed(2) 
       cartCountElement.textContent = cartCount.toString();
     }
     document.querySelectorAll('.mobile-cart-count').forEach(el => {
-      el.textContent = cartCount;
+      el.textContent = cartCount.toString();
     });
   }
   
@@ -242,23 +290,26 @@ const finalPrice = discount > 0 ? (price - (price * discount / 100)).toFixed(2) 
     cartItemsContainer.innerHTML = html;
     cartTotalElement.textContent = `$${total.toFixed(2)}`;
     
-    // Añadir eventos a los botones de control de cantidad
+    // Añadir eventos a los botones de control de cantidad (con stopPropagation)
     document.querySelectorAll('.decrease-quantity').forEach(button => {
-      button.addEventListener('click', function(this: HTMLElement) {
+      button.addEventListener('click', function(this: HTMLElement, e) {
+        e.stopPropagation(); // Evita que se cierre el carrito
         const itemId = (this.closest('[data-cart-item]') as HTMLElement)?.dataset.cartItem || '';
         updateItemQuantity(itemId, -1);
       });
     });
     
     document.querySelectorAll('.increase-quantity').forEach(button => {
-      button.addEventListener('click', function(this: HTMLElement) {
+      button.addEventListener('click', function(this: HTMLElement, e) {
+        e.stopPropagation(); // Evita que se cierre el carrito
         const itemId = (this.closest('[data-cart-item]') as HTMLElement)?.dataset.cartItem || '';
         updateItemQuantity(itemId, 1);
       });
     });
     
     document.querySelectorAll('.remove-item').forEach(button => {
-      button.addEventListener('click', function(this: HTMLElement) {
+      button.addEventListener('click', function(this: HTMLElement, e) {
+        e.stopPropagation(); // Evita que se cierre el carrito
         const itemId = (this.closest('[data-cart-item]') as HTMLElement)?.dataset.cartItem || '';
         removeItemFromCart(itemId);
       });
@@ -297,5 +348,24 @@ const finalPrice = discount > 0 ? (price - (price * discount / 100)).toFixed(2) 
   document.addEventListener('DOMContentLoaded', () => {
     updateCartCount();
     updateCartItems();
+    
+    // Añadir estilos para la animación del carrito
+    const style = document.createElement('style');
+    style.textContent = `
+      .cart-notification {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+        transition: all 0.3s ease;
+      }
+      .cart-notification.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      .cart-notification.hide {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+      }
+    `;
+    document.head.appendChild(style);
   });
 </script>
