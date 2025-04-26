@@ -4,11 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        'cookie-brown': '#8B4513',
-        'cookie-light': '#D2B48C',
-        'cookie-dark': '#654321',
-        'cookie-cream': '#FFF8DC',
-        'cookie-accent': '#FF7F50'
+        'cookie-brown': '#9370DB', // Púrpura medio para mejor contraste
+        'cookie-light': '#FFD1DC', // Rosa pálido con mejor contraste
+        'cookie-dark': '#8A2BE2', // Violeta más oscuro para texto con buen contraste
+        'cookie-cream': '#FFF8DC', // Crema más contrastante
+        'cookie-accent': '#FF69B4' // Rosa intenso para acentos
       },
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],
