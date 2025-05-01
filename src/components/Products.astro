@@ -5,52 +5,53 @@ import ProductCard from './ProductCard.astro';
 const products = [
   {
     id: "p1",
-    name: "Cookie de Chocolate Clásica",
-    description: "Nuestra galleta más vendida con trozos de chocolate real y un toque de vainilla.",
-    price: 2.50,
-    image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&auto=format&fit=crop&w=600",
-    category: "Clásicas",
+    name: "Galleta Frutos Rojos",
+    description: "Galleta de frutos rojos, trozos de fruta, sabor vainilla y nuez de la india, con un glaseado de frambuesa.",
+    price: 70.00,
+    image: "imgs/frutos.jpg",
+    category: "Premium",
     rating: 4.9,
     isBestseller: true,
+    is18Plus: true,
     discount: 0
   },
   {
     id: "p2",
-    name: "Cookie de Chispas Arcoíris",
-    description: "Una galleta divertida y colorida con chispas de chocolate de colores.",
-    price: 2.75,
-    image: "imgs/imagen1.webp",
-    category: "Especiales",
+    name: "Galleta Kinder Bueno",
+    description: "Sabor vainilla con trozos de kinder bueno y cubierta de chocolate con leche.",
+    price: 75.00,
+    image: "imgs/kinder.jpg",
+    category: "Clásicas",
     rating: 4.6,
     isNew: true,
     discount: 0
   },
   {
     id: "p3",
-    name: "Cookie de Mantequilla de Maní",
-    description: "Una combinación perfecta de mantequilla de maní y chocolate que derrite el paladar.",
-    price: 3.00,
-    image: "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?q=80&auto=format&fit=crop&w=600",
+    name: "Galleta de Lotus",
+    description: "Sabor vainilla con crema de biscoff y cubierta de la misma con un trozo de galleta lotus.",
+    price: 75.00,
+    image: "imgs/lotus.jpg",
     category: "Especiales",
     rating: 4.7,
     discount: 10
   },
   {
     id: "p4",
-    name: "Cookie de Avena y Pasas",
-    description: "Una opción más saludable con avena integral y pasas jugosas.",
-    price: 2.25,
-    image: "imgs/imagen1.webp",
-    category: "Saludables",
+    name: "Galleta de Taro",
+    description: "Sabor a taro rellena de chocolate blanco con un pequeño troso de chocolate hershey's.",
+    price: 75.00,
+    image: "imgs/taro.jpg",
+    category: "Clásicas",
     rating: 4.5,
     discount: 0
   },
   {
     id: "p5",
-    name: "Cookie Triple Chocolate",
-    description: "Para los amantes del chocolate: una combinación de chocolate blanco, negro y con leche.",
-    price: 3.50,
-    image: "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?q=80&auto=format&fit=crop&w=600",
+    name: "Galleta Red Velvet",
+    description: "Sabor chocolate, con interior de trozos de chocolate blanco.",
+    price: 60.00,
+    image: "imgs/red.jpg",
     category: "Premium",
     rating: 4.9,
     isBestseller: true,
@@ -58,10 +59,10 @@ const products = [
   },
   {
     id: "p6",
-    name: "Cookie de Limón",
-    description: "Una galleta refrescante con sabor a limón y un glaseado dulce.",
-    price: 2.75,
-    image: "imgs/imagen1.webp",
+    name: "Galleta de Triple Chocolate",
+    description: "Galleta de triple chocolate con un rico relleno de nutela.",
+    price: 60.00,
+    image: "imgs/triple.jpg",
     category: "Especiales",
     rating: 4.3,
     isNew: true,
@@ -69,21 +70,21 @@ const products = [
   },
   {
     id: "p7",
-    name: "Cookie de Nueces y Caramelo",
-    description: "Una combinación de nueces tostadas y caramelo suave en una galleta perfecta.",
-    price: 3.25,
-    image: "imgs/imagen1.webp",
+    name: "Galleta Birthday Cake",
+    description: "Sabor vainilla con trozos de chocolate blanco, un glaseado de queso Philadelphia y una capa de chispas de sabores.",
+    price: 60.00,
+    image: "imgs/birthday.jpg",
     category: "Premium",
     rating: 4.8,
     discount: 0
   },
   {
     id: "p8",
-    name: "Cookie Sin Gluten",
-    description: "Elaborada con ingredientes especiales para quienes no toleran el gluten.",
-    price: 3.00,
-    image: "imgs/imagen1.webp",
-    category: "Saludables",
+    name: "Galleta de Matcha",
+    description: "Galleta de Té verde organico, con interor de trozos de chocolate blanco.",
+    price: 60.00,
+    image: "imgs/matcha.jpg",
+    category: "Clásicas",
     rating: 4.4,
     discount: 0
   }
@@ -97,7 +98,7 @@ const categories = ["Todas", ...new Set(products.map(product => product.category
   <div class="container-custom">
     <div class="text-center mb-12">
       <h2 class="text-3xl font-bold mb-3 text-cookie-brown">Nuestras Galletas</h2>
-      <p class="text-lg max-w-2xl mx-auto text-cookie-dark/80">
+      <p class="text-lg max-w-2xl mx-auto text-cookie-dark/80 text-gray-600">
         Descubre nuestra selección de galletas artesanales, elaboradas con los mejores ingredientes y mucho amor.
       </p>
     </div>
@@ -141,6 +142,7 @@ const categories = ["Todas", ...new Set(products.map(product => product.category
           isNew={product.isNew}
           isBestseller={product.isBestseller}
           discount={product.discount}
+          is18Plus={product.is18Plus}
         />
       ))}
     </div>

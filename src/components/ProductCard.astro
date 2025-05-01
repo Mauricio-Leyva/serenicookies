@@ -10,6 +10,7 @@ interface Props {
   category?: string;
   isNew?: boolean;
   isBestseller?: boolean;
+  is18Plus?: boolean;
 }
 
 const { 
@@ -22,13 +23,14 @@ const {
   rating = 5, 
   category = "", 
   isNew = false, 
-  isBestseller = false 
+  isBestseller = false,
+  is18Plus = false
 } = Astro.props;
 
 const finalPrice = discount > 0 ? (price - (price * discount / 100)).toFixed(2) : price.toFixed(2);
 ---
 
-<div class="card group product-card" data-product-id={id} data-category={category}>
+<div class="card group product-card flex flex-col h-full" data-product-id={id} data-category={category}>
   <div class="relative overflow-hidden">
     <img 
       src={image} 
@@ -45,6 +47,9 @@ const finalPrice = discount > 0 ? (price - (price * discount / 100)).toFixed(2) 
       )}
       {discount > 0 && (
         <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">-{discount}%</span>
+      )}
+      {is18Plus && (
+        <span class="bg-black text-white text-xs px-2 py-1 rounded-full">+18</span>
       )}
     </div>
 
@@ -65,11 +70,13 @@ const finalPrice = discount > 0 ? (price - (price * discount / 100)).toFixed(2) 
     </div>
   </div>
   
-  <div class="p-4">
+  <div class="p-4 flex-1 flex flex-col">
     <h3 class="text-lg font-medium mb-1 text-cookie-dark">{name}</h3>
-    <p class="text-sm text-gray-600 mb-3 line-clamp-2">{description}</p>
+    <div class="description-container flex-1 overflow-y-auto mb-3">
+      <p class="text-sm text-gray-600">{description}</p>
+    </div>
     
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center mt-auto">
       <div class="flex items-center">
         <span class="font-bold text-lg text-cookie-brown">${finalPrice}</span>
         {discount > 0 && (
@@ -90,11 +97,23 @@ const finalPrice = discount > 0 ? (price - (price * discount / 100)).toFixed(2) 
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
   
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;  
-    overflow: hidden;
+  .description-container {
+    max-height: 100px;
+    scrollbar-width: thin;
+    scrollbar-color: #e2e8f0 transparent;
+  }
+  
+  .description-container::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .description-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .description-container::-webkit-scrollbar-thumb {
+    background-color: #e2e8f0;
+    border-radius: 20px;
   }
 </style>
 
